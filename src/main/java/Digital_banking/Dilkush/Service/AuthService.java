@@ -5,6 +5,7 @@ import Digital_banking.Dilkush.DTO.LoginRequest;
 import Digital_banking.Dilkush.DTO.LoginResponse;
 import Digital_banking.Dilkush.DTO.RegisterRequest;
 import Digital_banking.Dilkush.DTO.RegisterResponse;
+import Digital_banking.Dilkush.Exception.DuplicateEmailException;
 import Digital_banking.Dilkush.Repository.UserRepository;
 import Digital_banking.Dilkush.Security.JwtUtil;
 import Digital_banking.Dilkush.Entity.Role;
@@ -24,7 +25,7 @@ public class AuthService {
     public RegisterResponse register(RegisterRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already registered");
+            throw new DuplicateEmailException("Email already registered");
         }
 
         User user = User.builder()

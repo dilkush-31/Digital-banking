@@ -23,6 +23,9 @@ public class Transaction {
     @Column(nullable = false, unique = true)
     private String transactionReference;
 
+    @Column(nullable = false, unique = true)
+    private String idempotencyKey;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionType type;
@@ -48,5 +51,8 @@ public class Transaction {
     @PrePersist
     public void onCreate() {
         createdAt = LocalDateTime.now();
+
     }
+
+
 }
