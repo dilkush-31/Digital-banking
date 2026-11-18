@@ -14,6 +14,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: digital_banking
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d digital_banking"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/digital_banking
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: D9890311645
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v6
@@ -26,4 +46,6 @@ jobs:
           cache: maven
 
       - name: Build application
-        run: mvn -B clean verify
+        run: |
+          chmod +x mvnw
+          ./mvnw -B clean verify
