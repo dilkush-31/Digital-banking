@@ -20,7 +20,7 @@ jobs:
         env:
           POSTGRES_DB: digital_banking
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: ci_password
         ports:
           - 5432:5432
         options: >-
@@ -32,7 +32,7 @@ jobs:
     env:
       SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/digital_banking
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: D9890311645
+      SPRING_DATASOURCE_PASSWORD: ci_password
 
     steps:
       - name: Checkout source code
